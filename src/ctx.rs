@@ -21,10 +21,10 @@ impl Context {
 /// Returns a instance of Context
 /// # Examples
 /// ```
-/// use template::ctx;
+/// use template::prelude::*;
 ///
 /// let context = ctx! {
-///     "key" : 10,
+///     "key" => 10
 /// };
 /// ```
 #[macro_export]

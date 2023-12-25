@@ -1,5 +1,6 @@
 #[macro_use]
 pub mod ctx;
+pub mod error;
 pub mod template;
 pub use ctx::Context;
 pub use template::Template;
@@ -32,10 +33,14 @@ mod tests {
 
     #[test]
     fn template() {
-        let template = Template::new("Hello {{name}}");
+        let template = Template::new(r#"Hello {{name}}"#);
 
-        template.render(ctx! {
-            "name" => "meow"
-        });
+        let str = template
+            .render(ctx! {
+                "name" => "meow"
+            })
+            .unwrap();
+
+        assert_eq!(str, "Hello meow")
     }
 }
