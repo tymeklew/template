@@ -28,21 +28,20 @@ impl Template {
         }
     }
 
-    pub fn render(&self, context: Context) -> Result<String, Error> {
+    pub fn render(&self, context: Context) -> String {
         let reg = Regex::new(REGEX_STR).unwrap();
 
-        Ok(reg
-            .replace(&self.template, |caps: &Captures| {
-                // Get the string value
-                let key = caps.get(1).unwrap().as_str().to_string();
+        reg.replace(&self.template, |caps: &Captures| {
+            // Get the string value
+            let key = caps.get(1).unwrap().as_str().to_string();
 
-                let val = match &context.0.get(&key) {
-                    Some(val) => val.to_string(),
-                    None => String::new(),
-                };
+            let val = match &context.0.get(&key) {
+                Some(val) => val.to_string(),
+                None => String::new(),
+            };
 
-                val
-            })
-            .to_string())
+            val
+        })
+        .to_string()
     }
 }
